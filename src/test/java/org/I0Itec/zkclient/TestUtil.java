@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -100,8 +101,9 @@ public class TestUtil {
     }
 
     public static ZkServer startZkServer(String testName, int port) throws IOException {
-        String dataPath = "./build/test/" + testName + "/data";
-        String logPath = "./build/test/" + testName + "/log";
+    	UUID uuid = UUID.randomUUID();
+        String dataPath = "target/" +uuid.toString()+"/"+ testName + "/data";
+        String logPath = "target/" +uuid.toString()+"/"+  testName + "/log";
         FileUtils.deleteDirectory(new File(dataPath));
         FileUtils.deleteDirectory(new File(logPath));
         return startServer(port, dataPath, logPath);
